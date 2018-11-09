@@ -10,5 +10,6 @@ public class BookServiceTest {
 	public void testIoC(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("container.xml");
 		System.out.println(context.getBean("bookDao"));
+		System.out.println(context.getBean("bookDao2"));
 	}
 }
