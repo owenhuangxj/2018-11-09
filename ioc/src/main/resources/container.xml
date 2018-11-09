@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd" default-lazy-init="true">
+	<!-- 通过bean标签注册一个类到Spring Ioc容器中去， 通过一种依赖注入的方式，容器会将注册的bean 注入到我们程序员标注需要注入这个类的对象的地方-->
+    <bean id="bookSevice" class="com.ss.service.BookService">
+    	<property name="bookDao"  ref="bookDao"/>
+    </bean>
+    <bean id="bookDao" class="com.ss.dao.BookDaoImpl">
+    	<property name="name"  value="Owen"/>
+    	<property name="age"  value="36"/>
+    </bean>
+    
+    <bean id="bookDao2" class="com.ss.dao.BookDaoImpl" >
+    	<property name="name"  value="ZUOKAIDI"/>
+    	<property name="age"  value="15"/>
+    </bean>
+</beans>
