@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="bookService" class="com.ss.service.BookService">
+		<property name="bookDao" ref="bookDao"/>
+	</bean>
+	
+	<bean id="bookDao" class="com.ss.dao.BookDaoImpl">
+		<property name="name" value="膜法师"/>
+		<property name="age" value="90"/>
+	</bean>
+</beans>
