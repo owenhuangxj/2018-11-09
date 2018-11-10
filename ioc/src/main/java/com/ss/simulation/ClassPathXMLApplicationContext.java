@@ -1,4 +1,4 @@
-package com.ss.service;
+package com.ss.simulation;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -13,7 +13,6 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import com.ss.dao.BookDaoImpl;
-import com.ss.simulation.ApplicationContext;
 
 public class ClassPathXMLApplicationContext implements ApplicationContext {
 	private Map<String,Object> container = new HashMap<>();
@@ -72,25 +71,20 @@ public class ClassPathXMLApplicationContext implements ApplicationContext {
 						setStr = "set".concat(ref.substring(0,1).toUpperCase()).concat(ref.substring(1));
 						value = container.get(ref);
 						setter = obj.getClass().getMethod(setStr, value.getClass().getInterfaces()[0]);
-						setter.invoke(obj, value);
 					}else{
 						String name = property.getAttributeValue("name");
 						setStr = "set".concat(name.substring(0,1).toUpperCase()).concat(name.substring(1));
 						Field field = obj.getClass().getDeclaredField(name);
 						
-						String va = property.getAttributeValue("value");
-						
-						
-						if(field.getGenericType().getTypeName().endsWith("Integer")) {
-							setter = obj.getClass().getDeclaredMethod(setStr, Integer.class);
-							Integer v = Integer.parseInt(va);
-							System.out.println("value : " + v + "....................................");
+						String stringValue = property.getAttributeValue("value");
+						setter = obj.getClass().getDeclaredMethod(setStr, field.getType());
+						System.out.println("type : " + field.getType().getName());
+						if(field.getType().getName().endsWith("Integer")) {
+							Integer v = Integer.parseInt(stringValue);
 							setter.invoke(obj, v);
 							
 						}else if(field.getGenericType().getTypeName().endsWith("String")) {
-							System.out.println("va : " + va);
-							setter = obj.getClass().getDeclaredMethod(setStr, String.class);
-							setter.invoke(obj, va);
+							setter.invoke(obj, stringValue);
 						}
 					}
 				}
@@ -98,27 +92,6 @@ public class ClassPathXMLApplicationContext implements ApplicationContext {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		System.out.println(root.getName());
-	}
-	public static void main(String[] args) throws NoSuchFieldException, SecurityException {
-		ClassPathXMLApplicationContext context =  new ClassPathXMLApplicationContext("beans.xml");
-		System.out.println(context.getBean("bookDao"));
-		
 		
 	}
 

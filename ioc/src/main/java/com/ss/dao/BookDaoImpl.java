@@ -5,7 +5,7 @@ public class BookDaoImpl implements BookDao {
 	private Integer age;
 	
 	public BookDaoImpl() {
-		System.out.println("////////////////////////////////////////////////////////////////////////////////////");
+		System.out.println("=======================无参构造器=======================");
 	}
 	public String getName() {
 		return name;
